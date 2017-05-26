@@ -3,12 +3,10 @@ var less = require("gulp-less");
 var path = require("path");
 var browserSync = require("browser-sync").create();
 var reload = browserSync.reload;
-var haml = require('gulp-haml');
 var sourcemaps = require("gulp-sourcemaps");
 var mincss = require("gulp-minify-css");
 var concat = require('gulp-concat');
 var watch = require("gulp-watch");
-var pug = require('gulp-pug');
 
 gulp.task('default', ['images-to-dist', 'fonts-prepare', "bootstrap-prepare", 'less-prebuild', 'js-prepare'], function () {
   browserSync.init({
@@ -47,16 +45,6 @@ gulp.task('default', ['images-to-dist', 'fonts-prepare', "bootstrap-prepare", 'l
       // .pipe(concat("style.css"))
       .pipe(gulp.dest("./dist/css/"))
     // .pipe(reload());
-  });
-
-  watch('./src/pug/**/*.pug', function () {
-    console.log('pug changed');
-    return gulp.src('./src/pug/**/*.pug')
-      .pipe(pug())
-      .pipe(gulp.dest('./dist/'))
-      .pipe(reload({
-        stream: true
-      }));
   });
 
   //watch images change
@@ -150,17 +138,6 @@ gulp.task('folder', function () {
     .pipe(haml())
     .pipe(gulp.dest('./haml/blue'));
 });
-
-
-
-// Get and render all .haml files recursively 
-gulp.task('haml', function () {
-  gulp.src('./haml/**/*.haml')
-    .pipe(haml())
-    .pipe(gulp.dest('./haml'));
-});
-
-
 
 // Options 
 // Change file extension 
